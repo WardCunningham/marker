@@ -3,14 +3,14 @@
 @color = ('aquamarine', 'bisque', 'darkseagreen', 'pink', 'powderblue', 'salmon', 'yellow');
 $color = 0;
 
-open F, '../lib/marker/language.treetop';
-open O, '>language.dot';
-print O "digraph language {\n";
+open T, '../lib/marker/language.treetop';
+open D, '>language.dot';
+print D "digraph language {\n";
 
 sub color {
 	my ($from) = @_;
 	return if $color{$from}++;
-	print O node($from), " [style = filled, fillcolor = $color[$color]];\n";
+	print D node($from), " [style = filled, fillcolor = $color[$color]];\n";
 }
 
 sub arc {
@@ -18,7 +18,7 @@ sub arc {
 	next if $done{"$from -> $to"}++;
 	print "$from -> $to\n";
 	color $from;
-	print O node($from), " -> ", node($to), ";\n";
+	print D node($from), " -> ", node($to), ";\n";
 }
 
 sub node {
@@ -31,7 +31,7 @@ sub node {
 	"\"$node\"";
 }
 
-for (<F>) {
+for (<T>) {
 	$color++ if /####/;
 	next if /^\s*#/;
 	next if /^\s*$/;
@@ -62,5 +62,5 @@ for (<F>) {
 	}
 }
 
-print O "}\n";
+print D "}\n";
 
