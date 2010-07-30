@@ -55,7 +55,7 @@ for (<T>) {
 		s/\[_/\[ /;
 		next if /^ws$/;
 		next if /^""$/;
-		next if $rule =~ /_word$/;
+		next if $rule =~ /_(enclosed|term)_word$/;
 		s/(\*|\+)$//;
 		arc $rule, $_;
 		arc $_, $2 if /^(&|!)(.*)/;

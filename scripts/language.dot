@@ -145,6 +145,14 @@ digraph language {
 "plain\ntext" [style = filled, fillcolor = pink];
 "plain\ntext" -> "plain\nword";
 "plain\ntext" -> "plain\ntext";
+"plain\nword" [style = filled, fillcolor = pink];
+"plain\nword" -> "!delimiter";
+"!delimiter" [style = filled, fillcolor = pink];
+"!delimiter" -> "delimiter";
+"plain\nword" -> "![ \\t\\r\\n]";
+"![ \\t\\r\\n]" [style = filled, fillcolor = pink];
+"![ \\t\\r\\n]" -> "[ \\t\\r\\n]";
+"plain\nword" -> ".";
 "delimiter" [style = filled, fillcolor = powderblue];
 "delimiter" -> "bold\ntoggle";
 "delimiter" -> "italic\ntoggle";
