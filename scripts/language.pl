@@ -1,13 +1,23 @@
 #!/usr/bin/perl
 
+@color = ('aquamarine', 'bisque', 'darkseagreen', 'pink', 'powderblue', 'salmon', 'yellow');
+$color = 0;
+
 open F, '../lib/marker/language.treetop';
 open O, '>language.dot';
 print O "digraph language {\n";
+
+sub color {
+	my ($from) = @_;
+	return if $color{$from}++;
+	print O node($from), " [style = filled, fillcolor = $color[$color]];\n";
+}
 
 sub arc {
 	my ($from, $to) = @_;
 	next if $done{"$from -> $to"}++;
 	print "$from -> $to\n";
+	color $from;
 	print O node($from), " -> ", node($to), ";\n";
 }
 
@@ -22,6 +32,7 @@ sub node {
 }
 
 for (<F>) {
+	$color++ if /####/;
 	next if /^\s*#/;
 	next if /^\s*$/;
 	next if /^\s*(module|grammar|end|\/)/;
