@@ -42,6 +42,8 @@ for (<F>) {
 	s/\[ /\[_/;
 	for (/(\S+)/g) {
 		s/\[_/\[ /;
+		next if /^ws$/;
+		next if /^""$/;
 		next if $rule =~ /_word$/;
 		s/(\*|\+)$//;
 		arc $rule, $_;
