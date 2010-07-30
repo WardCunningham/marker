@@ -39,8 +39,8 @@ digraph language {
 "verbatim\narea" -> "rnl";
 "verbatim\narea" -> "verbatim\narea";
 "verbatim" -> "\"";
-"verbatim" -> "!\"\\n\"";
-"!\"\\n\"" -> "\"\\n\"";
+"verbatim" -> "!rnl";
+"!rnl" -> "rnl";
 "verbatim" -> ".";
 "horiz\nrule" -> "\"----\"";
 "horiz\nrule" -> "\"-\"";
