@@ -237,7 +237,7 @@ module Marker
     ##### text markup
 
     rule bold
-      bold_toggle ws bold_enclosed_text ws bold_toggle <Bold>
+      bold_toggle ws bold_enclosed_text ws ( bold_toggle / &rnl ) <Bold>
     end
 
     rule bold_enclosed_text
@@ -278,7 +278,7 @@ module Marker
     end
 
     rule italic
-      italic_toggle ws italic_enclosed_text ws italic_toggle_no_lookahead <Italic>
+      italic_toggle ws italic_enclosed_text ws ( italic_toggle_no_lookahead / &rnl ) <Italic>
     end
 
     rule italic_enclosed_text

@@ -10,11 +10,32 @@ class FormattingTest < Test::Unit::TestCase
     assert_match("<p><b>bold</b></p>", markup.to_html)
   end
 
+  def test_bold_formatting_within_a_word
+    text = "Em'''pha'''sis"
+    markup = Marker.parse text
+    
+    assert_match("<p>Em<b>pha</b>sis</p>", markup.to_html)
+  end
+
+  def test_bold_with_closing_markup_missing
+    text = "'''bold\nplain"
+    markup = Marker.parse text
+    
+    assert_match("<p><b>bold</b> plain</p>", markup.to_html)
+  end
+
   def test_italic_formatting
     text = "''italic''"
     markup = Marker.parse text
     
     assert_match("<p><i>italic</i></p>", markup.to_html)
+  end
+
+  def test_italic_with_closing_markup_missing
+    text = "''italic\nplain"
+    markup = Marker.parse text
+    
+    assert_match("<p><i>italic</i> plain</p>", markup.to_html)
   end
 
   def test_bold_italic_formatting
@@ -93,6 +114,14 @@ class FormattingTest < Test::Unit::TestCase
     markup = Marker.parse text
     
     assert_match("<hr />\n<p>----</p>", markup.to_html)
+  end
+
+  def test_text_on_horizontal_rule
+    text = "This paragraph precedes the rule.\n---------- We start a para-\ngraph at the end\nof the rule."
+    markup = Marker.parse text
+
+    assert_match("<p>This paragraph precedes the rule.</p>\n<hr />\n<p>We start a para- graph at the end of the rule.</p>", markup.to_html)
+    # mediawiki: assert_match("<p>This paragraph precedes the rule.</p>\n<hr />\nWe start a para-\n<p>graph at the end of the rule.</p>", markup.to_html)
   end
 
   def test_trailing_spaces
